@@ -5,15 +5,15 @@ const tenderSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Tender name is required'],
         trim: true,
-        maxlength: [40, 'Tender name must be less than 50 characters'],
+        maxlength: [50, 'Tender name must be less than 50 characters'],
         minlength: [3, 'Tender name must be atleast 3 characters']
     },
     description: {
         type: String,
         required: [true, 'Description is required'],
         trim: true,
-        maxlength: [40, 'Description must be less than 4000 characters'],
-        minlength: [20, 'Description must be atleast 3 characters']
+        maxlength: [4000, 'Description must be less than 4000 characters'],
+        minlength: [3, 'Description must be atleast 3 characters']
     },
     startTime: {
         type: Number,
@@ -30,6 +30,10 @@ const tenderSchema = new mongoose.Schema({
     isClosed: {
         type: Boolean,
         default: false
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 })
 
