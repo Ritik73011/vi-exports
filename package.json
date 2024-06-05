@@ -1,6 +1,22 @@
 {
+  "name": "vi-exports",
+  "version": "1.0.0",
+  "description": "A Tender Management System",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "Ritik Kumar Singh",
+  "keywords": [],
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-rate-limit": "^7.3.0",
     "express-validator": "^7.1.0",
