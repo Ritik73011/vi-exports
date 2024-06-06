@@ -11,9 +11,13 @@ import BidForm from "../bidForm/BidForm";
 const UserTender = () => {
   const { loading, uTenders } = useSelector((state) => state.uTenders);
   const dispatch = useDispatch();
+
+  //getting available tenders for users
   useEffect(() => {
     if (uTenders.length === 0) dispatch(getTendersUser());
   }, [uTenders]);
+
+  //UI PARTS
   return (
     <div className="tender-list">
       {loading ? (
@@ -27,6 +31,7 @@ const UserTender = () => {
   );
 };
 
+// UI PARTS
 const SingleTenderCard = ({ tender }) => {
   const [open, setOpen] = useState(false);
   return (

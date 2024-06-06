@@ -7,9 +7,11 @@ const AllBids = () => {
   const dispatch = useDispatch();
   const { bLoading, bids } = useSelector((state) => state.bids);
 
+  // getiing all bids for admin
   useEffect(() => {
     if (bids.length === 0) dispatch(getBids());
   }, []);
+
   return (
     <div>
       {bLoading ? (

@@ -6,9 +6,12 @@ import { getDateFromTimestamp } from "../../utils";
 const AllTender = () => {
   const { loading, tenders } = useSelector((state) => state.tenders);
   const dispatch = useDispatch();
+
+  //getting all previous tenders for admin
   useEffect(() => {
     if (tenders.length === 0) dispatch(getTendersAdmin());
   }, [tenders]);
+
   return (
     <div className="tender-list">
       {loading ? (

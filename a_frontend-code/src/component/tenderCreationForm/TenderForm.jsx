@@ -55,6 +55,7 @@ const TenderForm = () => {
     }
   };
 
+  //ui part
   return (
     <div className="form-container">
       <form className="tender-form" onSubmit={handleSubmit}>

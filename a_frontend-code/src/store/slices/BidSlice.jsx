@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const api = "http://localhost:8000/";
 
+// GEtting bids
 export const getBids = createAsyncThunk(
   "getBids",
   async (args, { rejectWithValue }) => {

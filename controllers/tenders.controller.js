@@ -6,6 +6,7 @@ const { default: mongoose } = require("mongoose");
 const userBidsModel = require("../models/userBids.model");
 const { sendMail } = require("../utils/sendMail");
 
+//creating new tender
 const createNewTender = async (req, res) => {
     const body = req.body;
     try {

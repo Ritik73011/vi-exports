@@ -18,6 +18,7 @@ const BidForm = ({ tenderId }) => {
 
   const { bLoading } = useSelector((state) => state.bids);
 
+  //handle form data
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -26,6 +27,7 @@ const BidForm = ({ tenderId }) => {
     });
   };
 
+  // handling submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -54,6 +56,7 @@ const BidForm = ({ tenderId }) => {
     }
   };
 
+  //ui part
   return (
     <div className="form-container-bid">
       <form className="bid-form" onSubmit={handleSubmit}>
