@@ -20,18 +20,21 @@ const createNewTender = async (req, res) => {
         if (startTime === NaN || endTime === NaN || bufferTime === NaN)
             return response(res, 400, { success: false, msg: "Invalid date formet" });
 
+        const newDate = new Date().toISOString();
+
         const obj = {
             name: body.name,
             description: body.description,
             startTime,
             endTime,
-            bufferTime
+            bufferTime,
+            createdAt: newDate,
         }
 
         const newTender = new tendersModel(obj);
         await newTender.validate();
-        await newTender.save();
-        return response(res, 200, { success: true, msg: 'Tender created...' })
+        const aa = await newTender.save();
+        return response(res, 200, { success: true, msg: 'Tender created...', _id: aa._id, newDate })
     } catch (error) {
         if (error.name === 'ValidationError') {
             const errors = Object.values(error.errors).map(err => err.message);
@@ -58,7 +61,6 @@ const getTendersForUser = async (req, res) => {
             {
                 $match: {
                     isClosed: false,
-                    endTime: { $gt: Date.now() }
                 }
             },
             {
@@ -71,6 +73,7 @@ const getTendersForUser = async (req, res) => {
             }
         ]
         const tenders = await tendersModel.aggregate(pipeline);
+
         return response(res, 200, { success: true, tenders });
     } catch (error) {
         return response(res, 500, { success: false, error })

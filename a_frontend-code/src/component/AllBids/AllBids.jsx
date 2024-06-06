@@ -32,13 +32,17 @@ const AllBids = () => {
             <tbody>
               {bids.map((row) => (
                 <tr key={row._id}>
-                  <td>{row.tenderName}</td>
-                  <td>{row.name}</td>
-                  <td>{row.email}</td>
-                  <td>{getDateFromTimestamp(row.bidTime)}</td>
-                  <td>{row.bidCost}</td>
-                  <td>{row.flag.toString()}</td>
-                  <td>{row.createdAt}</td>
+                  <td style={{ wordWrap: "break-word" }}>{row.tenderName}</td>
+                  <td style={{ wordWrap: "break-word" }}>{row.name}</td>
+                  <td style={{ wordWrap: "break-word" }}>{row.email}</td>
+                  <td style={{ wordWrap: "break-word" }}>
+                    {getDateFromTimestamp(row.bidTime)}
+                  </td>
+                  <td style={{ wordWrap: "break-word" }}>{row.bidCost}</td>
+                  <td style={{ wordWrap: "break-word" }}>
+                    {row.flag.toString()}
+                  </td>
+                  <td style={{ wordWrap: "break-word" }}>{row.createdAt}</td>
                 </tr>
               ))}
             </tbody>

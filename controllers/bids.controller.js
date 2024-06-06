@@ -36,13 +36,14 @@ const createNewBid = async (req, res) => {
             flag: differenceInMinutes <= 5 ? true : false
         })
         await newBid.validate();
-        await newBid.save();
+        const aa = await newBid.save();
+        const newDate = new Date().toISOString();
 
         if (differenceInMinutes <= 5) {
             await tendersModel.findByIdAndUpdate(body.tenderId, { endTime: tender.bufferTime })
-            return response(res, 200, { success: true, msg: 'Bid placed in last 5 min & tender time extended.' });
+            return response(res, 200, { success: true, msg: 'Bid placed in last 5 min & tender time extended.', _id: aa._id, newDate });
         }
-        return response(res, 200, { success: true, msg: 'Bid placed...' });
+        return response(res, 200, { success: true, msg: 'Bid placed...', _id: aa._id, newDate });
 
     } catch (error) {
         if (error.name === 'ValidationError') {
@@ -56,7 +57,32 @@ const createNewBid = async (req, res) => {
 //getting bids for admin
 const getAllBids = async (req, res) => {
     try {
-        const bids = await userBidsModel.find().sort({ bidCost: -1 });
+        const pipeline = [
+            {
+                $lookup: {
+                    from: "tenders",
+                    localField: "tenderId",
+                    foreignField: "_id",
+                    as: "tender"
+                }
+            },
+            {
+                $unwind: '$tender'
+            },
+            {
+                $project: {
+                    tenderName: "$tender.name",
+                    tenderId: 1,
+                    flag: 1,
+                    name: 1,
+                    email: 1,
+                    bidTime: 1,
+                    bidCost: 1,
+                    createdAt: 1
+                }
+            }
+        ];
+        const bids = await userBidsModel.aggregate(pipeline).sort({ bidCost: 1 });
         return response(res, 200, { success: true, bids });
     } catch (error) {
         return response(res, 500, { success: false, error })

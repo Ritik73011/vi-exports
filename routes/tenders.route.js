@@ -1,7 +1,7 @@
 const express = require('express');
 const route = express.Router();
 const { body } = require('express-validator');
-const { createNewTender, getTenders, assignTenderToUser } = require('../controllers/tenders.controller');
+const { createNewTender, getTenders, assignTenderToUser, getTendersForUser } = require('../controllers/tenders.controller');
 
 //route validator
 const tenderValidator = [
@@ -17,7 +17,9 @@ const tenderValidator = [
 ]
 
 
-route.post('/create-tender', tenderValidator, createNewTender)
+route.post('/create-tender', tenderValidator, createNewTender);
+
 route.get('/get-tenders', getTenders);
-route.patch('/assign-tender', assignTenderToUser);
+route.get('/get-tenders-users', getTendersForUser);
+route.patch('/assign-tender/:id/:id', assignTenderToUser);
 module.exports = route;

@@ -2,19 +2,19 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const sendMail = async (email, companyName, tenderName) => {
-    try {
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.USER_EMAIL,
-                pass: process.env.EMAIL_PASS
-            }
-        })
-        const mailOptions = {
-            from: process.env.USER_EMAIL,
-            to: email,
-            subject: "Tender Assigned",
-            html: ` <html lang="en">
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.USER_EMAIL,
+        pass: process.env.EMAIL_PASS
+      }
+    })
+    const mailOptions = {
+      from: process.env.USER_EMAIL,
+      to: email,
+      subject: "Tender Assigned",
+      html: ` <html lang="en">
             <head>
               <meta charset="UTF-8">
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,12 +54,12 @@ const sendMail = async (email, companyName, tenderName) => {
               </div>
             </body>
             </html>`,
-        };
+    };
 
-        await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions);
 
-    } catch (error) {
-        throw error
-    }
+  } catch (error) {
+    throw error
+  }
 };
-export { sendMail }
+module.exports = { sendMail }
