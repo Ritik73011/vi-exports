@@ -4,9 +4,10 @@ function getDateFromTimestamp(timestampInMilliseconds) {
 
 
 function convertDateTimeToTimestamp(dateTimeString) {
-    const date = new Date(dateTimeString);
-    const timestamp = date.getTime();
-    return timestamp;
+    const date = new Date(dateTimeString).toISOString();
+    const timestamp = new Date(date);
+    const miliseconds = timestamp.getMilliseconds();
+    return miliseconds;
 }
 
 module.exports = { convertDateTimeToTimestamp, getDateFromTimestamp }
