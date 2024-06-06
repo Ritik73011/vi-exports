@@ -2,6 +2,9 @@ const { validationResult } = require("express-validator");
 const { response } = require('../utils/responce')
 const { convertDateTimeToTimestamp } = require('../utils/timeConverter');
 const tendersModel = require("../models/tenders.model");
+const { default: mongoose } = require("mongoose");
+const userBidsModel = require("../models/userBids.model");
+const { sendMail } = require("../utils/sendMail");
 
 const createNewTender = async (req, res) => {
     const body = req.body;
@@ -69,6 +72,30 @@ const getTendersForUser = async (req, res) => {
         ]
         const tenders = await tendersModel.aggregate(pipeline);
         return response(res, 200, { success: true, tenders });
+    } catch (error) {
+        return response(res, 500, { success: false, error })
+    }
+}
+
+//assigning tender to user
+const assignTenderToUser = async (req, res) => {
+    const tenderID = req.params.id;
+    const bidID = req.params.id;
+    try {
+        if (!mongoose.Types.ObjectId.isValid(tenderID) || !mongoose.Types.ObjectId.isValid(bidID))
+            return response(res, 400, { success: false, msg: "Invalid Tender ID" });
+
+        const tenders = await tendersModel.findOne({ _id: tenderID })
+        const bids = await userBidsModel.findOne({ _id: bidID })
+
+        if (!tenders || !bids)
+            return response(res, 400, { success: false, msg: "No data found with given ID" });
+
+        await tendersModel.findByIdAndUpdate(tenderID, { isClosed: true });
+        sendMail(bids.email, bids.name, tenders.name).then(() => {
+            console.log("mail sent");
+        });
+        return response(res, 200, { success: true, msg: "Tender Assigned, User will notified by email" });
     } catch (error) {
         return response(res, 500, { success: false, error })
     }
