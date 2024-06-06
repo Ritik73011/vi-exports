@@ -53,6 +53,15 @@ const createNewBid = async (req, res) => {
     }
 }
 
+//getting bids for admin
+const getAllBids = async (req, res) => {
+    try {
+        const bids = await userBidsModel.find().sort({ bidCost: -1 });
+        return response(res, 200, { success: true, bids });
+    } catch (error) {
+        return response(res, 500, { success: false, error })
+    }
+}
 
 
-module.exports = { createNewBid }
+module.exports = { createNewBid, getAllBids }

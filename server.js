@@ -3,6 +3,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const dbConnection = require('./config/config');
 const tenderRoute = require('./routes/tenders.route');
+const bidRoute = require('./routes/bids.route');
 
 const app = express();
 app.use(express.json());
@@ -11,6 +12,7 @@ app.use(helmet());
 
 //routes
 app.use(tenderRoute);
+app.use(bidRoute);
 
 
 dbConnection().then(() => {
