@@ -1,7 +1,7 @@
 const express = require('express');
 const route = express.Router();
 const { body } = require('express-validator');
-const { createNewTender } = require('../controllers/tenders.controller');
+const { createNewTender, getTenders } = require('../controllers/tenders.controller');
 
 //route validator
 const tenderValidator = [
@@ -18,5 +18,5 @@ const tenderValidator = [
 
 
 route.post('/create-tender', tenderValidator, createNewTender)
-
+route.get('/get-tenders', getTenders);
 module.exports = route;

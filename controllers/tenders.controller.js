@@ -38,5 +38,40 @@ const createNewTender = async (req, res) => {
     }
 }
 
+// getting tenders for admin
+const getTenders = async (req, res) => {
+    try {
+        const tenders = await tendersModel.find().sort({ createdAt: -1 });
+        return response(res, 200, { success: true, tenders });
+    } catch (error) {
+        return response(res, 500, { success: false, error })
+    }
+}
 
-module.exports = { createNewTender }
+//get tender for users
+const getTendersForUser = async (req, res) => {
+    try {
+        const pipeline = [
+            {
+                $match: {
+                    isClosed: false,
+                    endTime: { $gt: Date.now() }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'bids',
+                    localField: '_id',
+                    foreignField: 'tenderId',
+                    as: 'bids'
+                }
+            }
+        ]
+        const tenders = await tendersModel.aggregate(pipeline);
+        return response(res, 200, { success: true, tenders });
+    } catch (error) {
+        return response(res, 500, { success: false, error })
+    }
+}
+
+module.exports = { createNewTender, getTenders, getTendersForUser }
