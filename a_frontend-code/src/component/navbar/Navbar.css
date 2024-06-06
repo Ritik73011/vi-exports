@@ -1,0 +1,27 @@
+.navbar {
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #325b89;
+}
+
+.navItemSec {
+    display: flex;
+    gap: 16px;
+}
+
+.navbar h2 {
+    color: whitesmoke;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.active {
+    text-shadow: 0px 0px 5px #638253;
+    font-weight: bolder;
+
+}
