@@ -101,4 +101,4 @@ const assignTenderToUser = async (req, res) => {
     }
 }
 
-module.exports = { createNewTender, getTenders, getTendersForUser }
+module.exports = { createNewTender, getTenders, getTendersForUser, assignTenderToUser }
