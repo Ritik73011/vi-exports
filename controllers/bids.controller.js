@@ -21,6 +21,7 @@ const createNewBid = async (req, res) => {
             return response(res, 400, { success: false, msg: "Invalid tender id" });
 
         const currentTime = Date.now();
+
         if (currentTime >= tender.endTime)
             return response(res, 400, { success: false, msg: "Tender closed." });
 
