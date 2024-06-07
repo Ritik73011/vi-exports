@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-const api = "https://vi-exports.onrender.com/";
+const api = "http://localhost:8000/";
 
+// getting tenders for admin
 export const getTendersAdmin = createAsyncThunk(
   "getTendersAdmin",
   async (args, { rejectWithValue }) => {
@@ -14,7 +15,7 @@ export const getTendersAdmin = createAsyncThunk(
   }
 );
 
-//create action
+//creation of tenders of admin
 export const createTender = createAsyncThunk(
   "createTender",
   async (data, { rejectWithValue }) => {

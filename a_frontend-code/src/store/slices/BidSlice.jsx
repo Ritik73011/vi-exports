@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-const api = "https://vi-exports.onrender.com/";
+const api = "http://localhost:8000/";
 
 // GEtting bids
 export const getBids = createAsyncThunk(
