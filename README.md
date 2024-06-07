@@ -32,6 +32,7 @@ The frontend is built using React.js and Material Joy library.
 1. Clone the repository:
 
    git clone https://github.com/Ritik73011/vi-exports.git
+
    cd /a_frontend-code
 
 2. Install the dependencies:
